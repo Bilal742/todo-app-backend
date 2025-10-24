@@ -6,7 +6,12 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+import cors from "cors";
+app.use(cors({
+  origin: "*", // or ["http://localhost:5173"] for specific frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 
 // Middleware
 app.use(express.json());
