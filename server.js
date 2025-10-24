@@ -6,29 +6,25 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-import cors from "cors";
+
 app.use(cors({
-  origin: "*", // or ["http://localhost:5173"] for specific frontend
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
-
-// Middleware
 app.use(express.json());
 
-// ✅ Route (order sahi kar diya)
-app.get("/", (request, response) => {
-  response.send("Server is running");
+// ✅ Database connect
+connectDB();
+
+// ✅ Base route
+app.get("/", (req, res) => {
+  res.send("✅ Todo backend is running on Vercel!");
 });
 
 // ✅ Todo routes
 app.use("/todo", router);
 
-// ✅ Connect Database
-connectDB();
-
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+// ❌ app.listen hata do (Vercel khud handle karega)
+// ✅ Instead, export app
+export default app;
