@@ -7,8 +7,9 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 
+// ✅ Use CORS properly
 app.use(cors({
-  origin: "*",
+  origin: "*", // Ya specific domain likh do agar chaho
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
@@ -25,6 +26,6 @@ app.get("/", (req, res) => {
 // ✅ Todo routes
 app.use("/todo", router);
 
-// ❌ app.listen hata do (Vercel khud handle karega)
+// ❌ app.listen hata do (Vercel handle karega)
 // ✅ Instead, export app
 export default app;
