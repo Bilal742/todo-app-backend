@@ -7,29 +7,30 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 
-// ✅ Use CORS properly
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-}));
+// ✅ Proper CORS setup
+app.use(cors);
 
+// ✅ Body parser
 app.use(express.json());
 
-// ✅ Database connect
+// ✅ Database connection
 connectDB();
 
 // ✅ Base route
 app.get("/", (req, res) => {
-  res.send("✅ Todo backend is running!");
+  res.send("✅ Todo backend is running successfully!");
 });
 
 // ✅ Todo routes
 app.use("/todo", router);
 
-// ✅ For local testing only:
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+// ✅ Local run only (Vercel auto handles server)
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`✅ Server running locally at http://localhost:${PORT}`);
+  });
+}
 
+// ✅ Export for Vercel
 export default app;
