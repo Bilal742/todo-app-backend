@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ Use CORS properly
 app.use(cors({
-  origin: "*", // Ya specific domain likh do agar chaho
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
@@ -20,12 +20,16 @@ connectDB();
 
 // ✅ Base route
 app.get("/", (req, res) => {
-  res.send("✅ Todo backend is running on Vercel!");
+  res.send("✅ Todo backend is running!");
 });
 
 // ✅ Todo routes
 app.use("/todo", router);
 
-// ❌ app.listen hata do (Vercel handle karega)
-// ✅ Instead, export app
+// ✅ For local testing only:
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on http://localhost:${PORT}`);
+});
+
 export default app;
